@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { toast } from 'sonner';
 import {
   Building2,
@@ -19,6 +18,7 @@ import {
 } from 'lucide-react';
 import { StudioDetail, StudioCategory } from '@/types/studio';
 import { createStudio, updateStudio } from '@/lib/api';
+import { FallbackImage } from '@/components/ui/FallbackImage';
 
 interface StudioFormProps {
   initialData?: StudioDetail;
@@ -514,12 +514,10 @@ export function StudioForm({ initialData, mode, userEmail, userName }: StudioFor
               key={idx}
               className="group relative aspect-video rounded-xl overflow-hidden border border-ss-border bg-ss-bg"
             >
-              <Image
+              <FallbackImage
                 src={url}
                 alt={`Studio Image ${idx + 1}`}
-                fill
-                className="object-cover"
-                sizes="(max-width: 640px) 50vw, 25vw"
+                className="absolute inset-0 h-full w-full object-cover"
               />
               {idx === 0 && (
                 <span className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-ss-accent text-white text-[10px] font-bold uppercase tracking-wider shadow">

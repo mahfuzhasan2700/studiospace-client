@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Aperture, User, Mail, Image as ImageIcon, Lock, Eye, EyeOff, Check, AlertCircle, ArrowRight } from 'lucide-react';
 import { signUp, signIn } from '@/lib/auth-client';
 import { toast } from 'sonner';
+import { FallbackImage } from '@/components/ui/FallbackImage';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -284,7 +285,7 @@ export default function RegisterPage() {
 
         {/* Right Photo Column (5 cols) */}
         <div className="hidden lg:block lg:col-span-5 relative bg-ss-surface-raised overflow-hidden">
-          <img
+          <FallbackImage
             src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=1000&q=80"
             alt="Podcast lounge recording space"
             className="w-full h-full object-cover"

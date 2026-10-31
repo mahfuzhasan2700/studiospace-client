@@ -18,6 +18,7 @@ const config: Config = {
           text: 'var(--ss-text)',
           muted: 'var(--ss-muted)',
           divider: 'var(--ss-divider)',
+          border: 'var(--ss-divider)',
           'control-border': 'var(--ss-control-border)',
           accent: 'var(--ss-accent)',
           'accent-hover': 'var(--ss-accent-hover)',
@@ -26,11 +27,11 @@ const config: Config = {
         }
       },
       fontFamily: {
-        heading: ['"Anthropic Serif"', 'Lora', 'Newsreader', '"Tiempos Headline"', 'Georgia', 'serif'],
-        body: ['"Anthropic Sans"', 'Inter', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
-        serif: ['"Anthropic Serif"', 'Lora', 'Newsreader', '"Tiempos Headline"', 'Georgia', 'serif'],
-        sans: ['"Anthropic Sans"', 'Inter', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
-        mono: ['"Anthropic Mono"', '"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+        heading: ['Newsreader', 'Lora', 'Georgia', 'serif'],
+        body: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        serif: ['Newsreader', 'Lora', 'Georgia', 'serif'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       borderRadius: {
         control: 'var(--ss-radius-control)',

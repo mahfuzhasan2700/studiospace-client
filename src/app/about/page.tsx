@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Aperture, Target, HeartHandshake, Sparkles, ArrowRight } from 'lucide-react';
+import { FallbackImage } from '@/components/ui/FallbackImage';
 
 export default function AboutPage() {
   return (
@@ -26,7 +27,7 @@ export default function AboutPage() {
 
           <div className="lg:col-span-5">
             <div className="aspect-[4/3] rounded-dialog overflow-hidden border border-ss-divider shadow-md bg-ss-surface-raised">
-              <img
+              <FallbackImage
                 src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800&q=80"
                 alt="Studio space interior"
                 className="w-full h-full object-cover"

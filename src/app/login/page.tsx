@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Aperture, Mail, Lock, Eye, EyeOff, ArrowRight, AlertCircle } from 'lucide-react';
 import { signIn } from '@/lib/auth-client';
 import { toast } from 'sonner';
+import { FallbackImage } from '@/components/ui/FallbackImage';
 
 function LoginForm() {
   const router = useRouter();
@@ -230,7 +231,7 @@ function LoginForm() {
 
         {/* Right Photo Column (5 cols) */}
         <div className="hidden lg:block lg:col-span-5 relative bg-ss-surface-raised overflow-hidden">
-          <img
+          <FallbackImage
             src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1000&q=80"
             alt="Photography cyc studio"
             className="w-full h-full object-cover"

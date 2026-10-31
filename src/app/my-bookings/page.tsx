@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
 import { toast } from 'sonner';
 import {
   Calendar,
@@ -29,6 +28,7 @@ import {
 } from '@/lib/api';
 import { Booking, BookingStatus } from '@/types/booking';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
+import { FallbackImage } from '@/components/ui/FallbackImage';
 
 export default function MyBookingsPage() {
   const router = useRouter();
@@ -344,11 +344,10 @@ export default function MyBookingsPage() {
               {/* Left Details */}
               <div className="flex items-start gap-4 flex-1">
                 <div className="relative w-20 h-20 sm:w-28 sm:h-24 rounded-xl overflow-hidden shrink-0 bg-ss-bg border border-ss-divider">
-                  <Image
+                  <FallbackImage
                     src={b.studioImage || 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1200&q=80'}
                     alt={b.studioTitle}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                    className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                   />
                 </div>
 

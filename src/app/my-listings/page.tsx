@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
 import { toast } from 'sonner';
 import {
   Building2,
@@ -20,6 +19,7 @@ import { useSession } from '@/lib/auth-client';
 import { fetchMyStudios, deleteStudio } from '@/lib/api';
 import { Studio } from '@/types/studio';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
+import { FallbackImage } from '@/components/ui/FallbackImage';
 
 export default function MyListingsPage() {
   const router = useRouter();
@@ -152,12 +152,10 @@ export default function MyListingsPage() {
             >
               {/* Thumbnail */}
               <div className="relative aspect-[16/10] bg-ss-bg overflow-hidden">
-                <Image
+                <FallbackImage
                   src={studio.imageUrl}
                   alt={studio.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
                 <span className="absolute top-3 left-3 px-3 py-1 rounded-full glass-pill text-white text-[11px] font-mono font-medium tracking-wide">
                   {studio.category.replace('-', ' ')}

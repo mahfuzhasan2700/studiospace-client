@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ShieldCheck, UserCheck, Wrench, Headphones, CheckCircle2 } from 'lucide-react';
+import { FallbackImage } from '@/components/ui/FallbackImage';
 
 const assurances = [
   {
@@ -33,7 +34,7 @@ export function HostAssurance() {
           {/* Left Column: Image with Stats Overlay */}
           <div className="lg:col-span-5 relative">
             <div className="relative aspect-[4/5] w-full rounded-dialog overflow-hidden border border-ss-divider shadow-md bg-ss-surface-raised">
-              <img
+              <FallbackImage
                 src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=80"
                 alt="Studio production team on set"
                 className="w-full h-full object-cover"

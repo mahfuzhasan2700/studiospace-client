@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { fetchStudioById } from '@/lib/api';
 import { StudioDetail } from '@/types/studio';
 import { BookingWidget } from '@/features/bookings/BookingWidget';
+import { FallbackImage } from '@/components/ui/FallbackImage';
 import {
 
   MapPin,
@@ -86,7 +87,7 @@ export default async function StudioDetailPage(props: {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 rounded-3xl overflow-hidden shadow-sm">
           {/* Main Hero Photo */}
           <div className="lg:col-span-2 relative aspect-[16/10] bg-ss-surface-raised rounded-2xl overflow-hidden border border-ss-divider/80 group">
-            <img
+            <FallbackImage
               src={studio.imageUrls[0] || studio.imageUrl}
               alt={studio.title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
@@ -97,7 +98,7 @@ export default async function StudioDetailPage(props: {
           <div className="grid grid-cols-2 lg:grid-cols-1 gap-4">
             {studio.imageUrls.slice(1, 3).map((imgUrl, idx) => (
               <div key={idx} className="relative aspect-[16/10] bg-ss-surface-raised rounded-2xl overflow-hidden border border-ss-divider/80 group">
-                <img
+                <FallbackImage
                   src={imgUrl}
                   alt={`${studio.title} preview ${idx + 2}`}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
@@ -147,7 +148,7 @@ export default async function StudioDetailPage(props: {
               <div className="p-6 rounded-3xl glass-panel border border-ss-divider/80 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
                   {studio.host.image ? (
-                    <img
+                    <FallbackImage
                       src={studio.host.image}
                       alt={studio.host.name}
                       className="w-14 h-14 rounded-full object-cover border-2 border-ss-accent shadow-sm"

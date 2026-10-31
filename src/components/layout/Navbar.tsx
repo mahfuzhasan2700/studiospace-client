@@ -8,6 +8,7 @@ import { Aperture, Menu, X as CloseIcon, PlusCircle, LayoutDashboard, Film, Cale
 import { ThemeToggle } from './ThemeToggle';
 import { useSession, signOut } from '@/lib/auth-client';
 import { toast } from 'sonner';
+import { FallbackImage } from '@/components/ui/FallbackImage';
 
 export function Navbar() {
   const pathname = usePathname();
@@ -112,7 +113,7 @@ export function Navbar() {
                   >
                     <div className="relative">
                       {user.image ? (
-                        <img
+                        <FallbackImage
                           src={user.image}
                           alt={user.name || 'User avatar'}
                           className="w-9 h-9 rounded-full object-cover border border-ss-control-border"
