@@ -1,139 +1,163 @@
-# StudioSpace — Peer-to-Peer Creative Workspace & Production Studio Sharing Platform
+# StudioSpace — Client Frontend Web Application
 
-[![Next.js](https://img.shields.io/badge/Next.js-16.4.0-black?logo=next.js)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-16.4.0_App_Router-black?logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v3.4-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
-[![MongoDB Atlas](https://img.shields.io/badge/MongoDB_Atlas-Database-47A248?logo=mongodb)](https://www.mongodb.com/atlas)
-[![BetterAuth](https://img.shields.io/badge/BetterAuth-Authentication-purple)](https://better-auth.com/)
+[![BetterAuth](https://img.shields.io/badge/BetterAuth-React_Client-purple)](https://better-auth.com/)
+[![Vercel Production](https://img.shields.io/badge/Vercel-Deployed-success?logo=vercel)](https://studiospace-client-eight.vercel.app)
+[![Node.js](https://img.shields.io/badge/Node.js-v24.20.0-green?logo=node.js)](https://nodejs.org/)
 
-> **Batch 14 Category Harry — StudioSpace**  
-> A peer-to-peer marketplace where hosts list film stages, photo studios, podcast suites, and music spaces, and creators discover, inspect availability, and book creative workspaces with transparent hourly pricing and zero double-booking concurrency conflicts.
-
----
-
-## 🌐 Live URLs & Deployment
-
-- **Client Live Site**: [https://studiospace-client-eight.vercel.app](https://studiospace-client-eight.vercel.app)
-- **Backend API**: [https://studiospace-server-theta.vercel.app](https://studiospace-server-theta.vercel.app)
-
-- **GitHub Client Repository**: [https://github.com/mahfuzhasan2700/studiospace-client](https://github.com/mahfuzhasan2700/studiospace-client)
-- **GitHub Server Repository**: [https://github.com/mahfuzhasan2700/studiospace-server](https://github.com/mahfuzhasan2700/studiospace-server)
+> **StudioSpace** is a peer-to-peer creative production workspace marketplace built with **Next.js 16 (App Router)**, **TypeScript**, **Tailwind CSS**, and **Claude.ai-inspired editorial minimalism**.
+> Creators discover, filter, inspect dynamic availability, and reserve photography cycloramas, film sound stages, podcast lounges, and music suites with transparent hourly pricing and zero double-booking concurrency conflicts.
 
 ---
 
-## 🔑 Examiner Test Credentials
+## 🌐 Live Production Deployments
 
-Examiners can log in immediately using these pre-seeded, active accounts:
+| Resource | URL | Status |
+| :--- | :--- | :---: |
+| **Client Frontend Application** | [https://studiospace-client-eight.vercel.app](https://studiospace-client-eight.vercel.app) | 🟢 Live |
+| **Backend REST API** | [https://studiospace-server-theta.vercel.app](https://studiospace-server-theta.vercel.app) | 🟢 Live |
+| **Client GitHub Repository** | [github.com/mahfuzhasan2700/studiospace-client](https://github.com/mahfuzhasan2700/studiospace-client) | 🟢 Public |
+| **Server GitHub Repository** | [github.com/mahfuzhasan2700/studiospace-server](https://github.com/mahfuzhasan2700/studiospace-server) | 🟢 Public |
 
-| Role | Email | Password | Access Capabilities |
+---
+
+## 🔑 Examiner Test Accounts
+
+Examiners can test all platform roles and permissions immediately with pre-seeded accounts:
+
+| Role | Email | Password | Permissions & Workflow |
 | :--- | :--- | :--- | :--- |
-| **Studio Host** | `host@studiospace.io` | `Host1234!` | Add new studios, edit/delete listings, review and confirm incoming booking requests |
-| **Creator / Director** | `creator@studiospace.io` | `Creator1234!` | Explore studios, book sessions, manage reservations, cancel pending slots, download PDF invoices |
+| **Studio Host** | `host@studiospace.io` | `Host1234!` | Full CRUD on listings (`/add-studio`, `/my-listings`, `/studios/edit/[id]`), review and confirm incoming creator booking requests, lock time slots. |
+| **Creator / Director** | `creator@studiospace.io` | `Creator1234!` | Explore catalog (`/studios`), reserve workspaces via interactive widget, manage reservations (`/my-bookings`), cancel pending sessions, download PDF receipts. |
 
-> *Self-registration is also supported with live password security validation (min 6 characters, uppercase + lowercase).*
-
----
-
-## ✨ 5 Key Architectural Features
-
-1. **Challenge 1: JWT in HTTPOnly Cookie Auth Integration**  
-   BetterAuth user management backed by MongoDB Atlas. Upon session creation, an HS256-signed JWT is issued in a secure HTTPOnly cookie (`token`), protecting private mutation routes (`/add-studio`, `/my-listings`, `/my-bookings`) from cross-site scripting (XSS) leaks and ensuring session survival on hard page refreshes.
-
-2. **Challenge 2: Concurrency & Double-Booking Prevention**  
-   Server-side interval overlap validation strictly verifies `{ status: 'Confirmed', startTime: { $lt: requestedEnd }, endTime: { $gt: requestedStart } }` before booking creation and host confirmation. Returns HTTP 409 Conflict with the clear, unambiguous message:  
-   *`"This time slot has already been booked. Please select another time."`*
-
-3. **Dynamic Studio Discovery & Advanced Filtering**  
-   Real-time multi-criteria filtering across 5 creative categories (*Photography Studio, Film & Dance Soundstage, Podcast Lounge, Music Suite, Creative Workshop*), text keyword search, location, sort ordering (Price Low-to-High, High-to-Low, Top-Rated), and active filter badges with one-click reset.
-
-4. **Host Studio Management & Custom Deletion Modal**  
-   Full CRUD workflow for hosts: list spaces with technical specs, amenities chips, ImgBB/direct image links, and custom hourly/deposit pricing. Deletions trigger an accessible custom confirmation dialog modal—no native browser `alert()` or `confirm()`—with instant Sonner toast feedback.
-
-5. **Creator Reservation Engine with PDF Invoicing (Bonus)**  
-   Creators select dates, start time, and end time with live price calculation (Hourly Rate × Duration + Refundable Deposit). Features two-way reservation tracking (Creator Reservations & Host Requests) and a one-click printable PDF invoice generator for accounting.
+*Self-registration via `/register` is fully supported with real-time password validation (min 6 characters, uppercase + lowercase).*
 
 ---
 
-## 🛠️ Tech Stack
+## 🏛️ Architecture & System Design
 
-### Client-Side
-- **Framework**: Next.js 16 (`16.4.0` App Router with Webpack builder for maximum Windows/Node 24 stability)
-- **Language**: TypeScript (`^5.7`)
-- **Styling**: Tailwind CSS v3, CSS variables design tokens (`ss-bg`, `ss-surface`, `ss-accent`), `next-themes` (Dark/Light mode switch)
-- **UI Components & Icons**: `lucide-react`, `sonner` toasts, `swiper` 11 (Hero slider with autoplay and counters)
-- **Auth Client**: BetterAuth React client (`@better-auth/react`)
-
-### Server-Side
-- **Runtime**: Node.js v24.20.0
-- **Framework**: Express.js 5 / TypeScript
-- **Database**: MongoDB Atlas (`studiospace_db`) with official `mongodb` native driver (Strictly **No SQLite**)
-- **Authentication**: BetterAuth with MongoDB adapter + `jose` JWT cookies
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                   STUDIOSPACE FRONTEND (Next.js 16)                    │
+│                                                                        │
+│  [Claude Typography]     [Motion Dynamics]       [Theme Tokens]        │
+│  Lora / Newsreader       Auto-Slide Progress     Light / Dark Mode     │
+│  Inter / JetBrains       Scroll-Aware Nav        CSS Variables         │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │
+               Same-Origin Rewrite  │  /api/* -> ${SERVER_URL}/api/*
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│                   STUDIOSPACE SERVER (Express 5)                       │
+│                                                                        │
+│  [Challenge 1]           [Challenge 2]           [Dual-Role Engine]    │
+│  JWT in HTTPOnly Cookie  Interval Concurrency    Host Listings &       │
+│  CSRF & Session Bound    Atomic MongoDB Check    Creator Bookings      │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│                   DATABASE (MongoDB Atlas Replica Set)                 │
+│      Collections: studios  •  bookings  •  users  •  sessions          │
+└────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## 🚀 Local Setup & Installation
+## 🚀 All 12 Production Routes
+
+The application features complete end-to-end routing with zero dead links:
+
+| Path | Page Description | Access Control | Key Features |
+| :--- | :--- | :---: | :--- |
+| `/` | **Home Page** | Public | Auto-progressing Hero Slider (7s timer bar), dynamic Category rail, Featured Studios grid, platform trust metrics. |
+| `/studios` | **Studio Catalog & Search** | Public | Multi-criteria search, category filters, sorting (Price/Rating/Newest), active filter dismiss pills, pagination. |
+| `/studios/[id]` | **Studio Details** | Public | High-res photo gallery with fallback safety, equipped amenities, host verification badge, sticky booking widget. |
+| `/studios/edit/[id]` | **Edit Studio** | Host Only | Update specs, pricing, amenities, and photo URLs with ownership verification. |
+| `/add-studio` | **List New Space** | Host Only | Dynamic multi-photo inputs, amenities selector, deposit & rate configuration. |
+| `/my-bookings` | **Reservations Hub** | Authenticated | Dual-view tabs (Creator Reservations & Host Requests), live pulsing status beacons, cancellation modal, printable PDF invoice. |
+| `/my-listings` | **Inventory Hub** | Host Only | Host workspace management, quick link to public view, custom non-native deletion confirmation modal. |
+| `/saved` | **Wishlist Workspaces** | Public / Local | Bookmark studios with interactive heart pop micro-animation, persistent storage across sessions. |
+| `/dashboard` | **Activity Overview** | Authenticated | Metrics cards showing total reservations, hosted spaces, and quick action shortcuts. |
+| `/how-it-works` | **Platform Guide** | Public | Step-by-step workflow guide for creators and studio hosts, safety policies. |
+| `/about` | **About StudioSpace** | Public | Mission statement, team story, and creative community standards. |
+| `/login` & `/register` | **Authentication** | Public | BetterAuth integration with credential validation and automatic redirection to requested URL. |
+
+---
+
+## 🛡️ Core Assignment Challenges Implemented
+
+### 1. Challenge 1: JWT in HTTPOnly Cookie Auth Integration
+* **Implementation**: Upon session creation via BetterAuth, the client exchanges the session with `POST /api/session/token`. The server issues an HS256-signed JWT inside a dedicated `token` cookie with `HttpOnly; SameSite=Lax; Secure`.
+* **Security Benefit**: Authentication tokens are physically inaccessible to browser JavaScript (`document.cookie`), preventing XSS token harvesting.
+* **Session Resilience**: Hard browser refreshes on protected routes (`/my-bookings`, `/my-listings`, `/add-studio`) seamlessly verify the cookie without flashing logout states.
+
+### 2. Challenge 2: Concurrency & Double-Booking Prevention
+* **Implementation**: The booking widget and backend evaluate interval overlaps against all `Confirmed` sessions in MongoDB:
+  $$\text{Overlap} \iff (\text{Existing Start} < \text{Requested End}) \land (\text{Existing End} > \text{Requested Start})$$
+* **User Feedback**: When a conflict occurs, the API returns **HTTP 409 Conflict** with:
+  > *"This time slot has already been booked. Please select another time."*
+* **Frontend Handling**: Visually highlighted in the booking widget with an animated warning alert and Sonner error toast.
+
+### 3. Challenge 3: Dark / Light Mode Switch
+* **Implementation**: Built with `next-themes` and a custom CSS variable design token system (`--ss-bg`, `--ss-surface`, `--ss-text`, `--ss-muted`, `--ss-accent`).
+* **Design Consistency**: Smooth 300ms transition between warm paper-toned editorial light mode and deep contrast dark mode without layout shift.
+
+---
+
+## 🎨 Claude.ai Typography & Motion Dynamics
+
+1. **Claude Editorial Font Stack**:
+   * **Headings**: `Anthropic Serif` / `Lora` / `Newsreader` / `Tiempos Headline` (warm literary editorial serif).
+   * **Body & UI**: `Anthropic Sans` / `Inter` (high-legibility neo-grotesque sans).
+   * **Data & Pricing**: `Anthropic Mono` / `JetBrains Mono` (crisp monospaced specs).
+2. **Motion Dynamics & UI Automation**:
+   * **Automated Slider Progress Bar**: Linear countdown timer bar (`animate-slide-progress`) on the active hero tab with auto-pause on mouse hover.
+   * **Scroll-Aware Header**: Automated scroll listener adds frosted glass blur (`backdrop-blur-xl`) and elevation when scrolled.
+   * **Card Spring Physics**: Smooth card lift (`transform: translateY(-6px)`) with cubic-bezier easing and floating category badges.
+   * **Dual-Tier Image Fallback**: `<FallbackImage />` gracefully falls back to verified daylight studio photography if external images 404.
+   * **Wishlist Pop Animation**: Interactive heart spring scale animation (`scale-1.35 -> scale-1`) on bookmark toggle.
+
+---
+
+## 📦 Local Development Setup
 
 ### Prerequisites
 - Node.js `v20.x` or `v24.x`
 - Git
 
-### 1. Clone the Repositories
+### 1. Clone & Install
 ```bash
 git clone https://github.com/mahfuzhasan2700/studiospace-client.git
-git clone https://github.com/mahfuzhasan2700/studiospace-server.git
+cd studiospace-client
+npm install --legacy-peer-deps
 ```
 
-### 2. Configure Client Environment
-In `studiospace-client/.env.local`:
+### 2. Environment Variables
+Create `.env.local` in the project root:
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:5000
 SERVER_URL=http://localhost:5000
 NEXT_PUBLIC_BETTER_AUTH_URL=http://localhost:3000
 ```
 
-### 3. Run Development Server
+### 3. Development Server
 ```bash
-cd studiospace-client
-npm install --legacy-peer-deps
 npm run dev
 ```
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
----
-
-## 📁 Repository Structure
+### 4. Production Build Verification
+```bash
+npm run build
 ```
-studiospace-client/
-├── src/
-│   ├── app/
-│   │   ├── (auth)/login & register
-│   │   ├── add-studio/             # Host studio listing form
-│   │   ├── dashboard/              # Creator & host metrics hub
-│   │   ├── my-bookings/            # Reservations & PDF invoice print
-│   │   ├── my-listings/            # Host listings & custom deletion
-│   │   ├── saved/                  # Wishlist bookmarks
-│   │   ├── studios/                # Explore studios & search filters
-│   │   │   ├── [id]/               # Studio details & booking widget
-│   │   │   └── edit/[id]/          # Edit studio listing
-│   │   ├── globals.css
-│   │   └── layout.tsx
-│   ├── components/
-│   │   ├── layout/                 # Navbar, Footer, ThemeToggle
-│   │   └── ui/                     # StudioCard, ConfirmDialog, WishlistButton
-│   ├── features/
-│   │   ├── bookings/               # BookingWidget & Concurrency error dialog
-│   │   ├── home/                   # HeroSlider, CategoryGrid, FeaturedStudios
-│   │   └── studios/                # StudioForm, StudioFilters
-│   ├── hooks/                      # useWishlist
-│   ├── lib/                        # api client, auth-client
-│   └── types/                      # studio.ts, booking.ts
-```
+*(Runs Next.js 16 Webpack build and type checks across all 12 routes with 0 errors).*
 
 ---
 
-## 🔒 Security & Challenge Implementations
+## 📄 License & Attribution
 
-- **Challenge 1 (JWT in HTTPOnly Cookie)**: Sessions are automatically exchanged for a signed HS256 JWT cookie upon sign-in. All mutations check this cookie server-side.
-- **Challenge 2 (Double-Booking Prevention)**: Strict non-overlapping interval query prevents simultaneous bookings for the same studio.
-- **Zero Native Alerts**: All confirmations use `<ConfirmDialog />` and notifications use Sonner toasts.
-- **No Dummy Lorem Ipsum**: 100% authentic production studio photography and real NYC/Brooklyn studio specs.
+Developed by **Mahfuz Hasan** for the **StudioSpace Marketplace Platform**.
+All studio imagery licensed under Unsplash License. Open-source under the MIT License.
