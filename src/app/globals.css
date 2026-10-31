@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+@import 'swiper/css/effect-fade';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --ss-bg: #F6F3ED;
+  --ss-surface: #FFFFFF;
+  --ss-surface-raised: #ECE8DF;
+  --ss-text: #1E2520;
+  --ss-muted: #586257;
+  --ss-divider: #D6D8CD;
+  --ss-control-border: #7A8275;
+  --ss-accent: #B6422D;
+  --ss-accent-hover: #92311F;
+  --ss-on-accent: #FFFFFF;
+  --ss-focus: #8F2F1E;
+  --ss-radius-control: 6px;
+  --ss-radius-image: 10px;
+  --ss-radius-dialog: 12px;
+  --ss-content-max: 1280px;
+}
+
+[data-theme="dark"],
+.dark {
+  color-scheme: dark;
+  --ss-bg: #171B18;
+  --ss-surface: #202621;
+  --ss-surface-raised: #2A332C;
+  --ss-text: #F5F2EA;
+  --ss-muted: #BBC5B7;
+  --ss-divider: #3B473E;
+  --ss-control-border: #7D8C7D;
+  --ss-accent: #F09A83;
+  --ss-accent-hover: #FFB29D;
+  --ss-on-accent: #211D19;
+  --ss-focus: #FFD2B8;
+}
+
+body {
+  background-color: var(--ss-bg);
+  color: var(--ss-text);
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Archivo', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Custom Swiper Controls Styling */
+.swiper-button-next,
+.swiper-button-prev {
+  color: var(--ss-accent) !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--ss-accent) !important;
+}
