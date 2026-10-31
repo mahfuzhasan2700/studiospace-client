@@ -13,8 +13,9 @@
 
 ## 🌐 Live URLs & Deployment
 
-- **Client Live Site**: [https://studiospace-client.vercel.app](https://studiospace-client.vercel.app) *(or active hosting)*
-- **Backend API**: [https://studiospace-server.onrender.com](https://studiospace-server.onrender.com) *(or active server host)*
+- **Client Live Site**: [https://studiospace-client-eight.vercel.app](https://studiospace-client-eight.vercel.app)
+- **Backend API**: [https://studiospace-server-theta.vercel.app](https://studiospace-server-theta.vercel.app)
+
 - **GitHub Client Repository**: [https://github.com/mahfuzhasan2700/studiospace-client](https://github.com/mahfuzhasan2700/studiospace-client)
 - **GitHub Server Repository**: [https://github.com/mahfuzhasan2700/studiospace-server](https://github.com/mahfuzhasan2700/studiospace-server)
 
