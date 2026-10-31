@@ -105,7 +105,59 @@ export function StudioFilters({ currentCategory, currentSearch, currentSort }: {
           );
         })}
       </div>
+
+      {/* Active Filter Badges */}
+      {(currentCategory || currentSearch || (currentSort && currentSort !== 'newest')) && (
+        <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+          <span className="text-ss-muted font-medium">Active filters:</span>
+
+          {currentCategory && (
+            <button
+              type="button"
+              onClick={() => updateFilter({ category: null })}
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-ss-accent/10 text-ss-accent border border-ss-accent/20 hover:bg-ss-accent/20 transition-colors font-medium"
+            >
+              Category: {categories.find((c) => c.slug === currentCategory)?.label || currentCategory}
+              <X className="w-3 h-3" />
+            </button>
+          )}
+
+          {currentSearch && (
+            <button
+              type="button"
+              onClick={handleClearSearch}
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-ss-accent/10 text-ss-accent border border-ss-accent/20 hover:bg-ss-accent/20 transition-colors font-medium"
+            >
+              Search: &quot;{currentSearch}&quot;
+              <X className="w-3 h-3" />
+            </button>
+          )}
+
+          {currentSort && currentSort !== 'newest' && (
+            <button
+              type="button"
+              onClick={() => updateFilter({ sort: null })}
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-ss-accent/10 text-ss-accent border border-ss-accent/20 hover:bg-ss-accent/20 transition-colors font-medium"
+            >
+              Sort: {currentSort}
+              <X className="w-3 h-3" />
+            </button>
+          )}
+
+          <button
+            type="button"
+            onClick={() => {
+              setSearchInput('');
+              router.push('/studios');
+            }}
+            className="text-xs text-ss-muted hover:text-ss-text underline underline-offset-4 ml-1"
+          >
+            Reset all
+          </button>
+        </div>
+      )}
     </div>
   );
 }
+
 
