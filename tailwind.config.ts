@@ -26,8 +26,11 @@ const config: Config = {
         }
       },
       fontFamily: {
-        heading: ['Archivo', 'sans-serif'],
-        body: ['"IBM Plex Sans"', 'sans-serif']
+        heading: ['"Anthropic Serif"', 'Lora', 'Newsreader', '"Tiempos Headline"', 'Georgia', 'serif'],
+        body: ['"Anthropic Sans"', 'Inter', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+        serif: ['"Anthropic Serif"', 'Lora', 'Newsreader', '"Tiempos Headline"', 'Georgia', 'serif'],
+        sans: ['"Anthropic Sans"', 'Inter', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+        mono: ['"Anthropic Mono"', '"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       borderRadius: {
         control: 'var(--ss-radius-control)',
