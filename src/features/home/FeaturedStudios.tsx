@@ -42,3 +42,4 @@ export function FeaturedStudios({ studios }: { studios: Studio[] }) {
     </section>
   );
 }
+

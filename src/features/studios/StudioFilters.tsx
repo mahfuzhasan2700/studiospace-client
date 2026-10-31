@@ -108,3 +108,4 @@ export function StudioFilters({ currentCategory, currentSearch, currentSort }: {
     </div>
   );
 }
+
