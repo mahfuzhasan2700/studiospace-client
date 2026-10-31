@@ -109,19 +109,28 @@ export function HeroSlider() {
 
       <div className="hero-stage__controls">
         <div className="hero-stage__progress" role="tablist" aria-label="Choose featured space">
-          {slides.map((item, index) => (
-            <button
-              key={item.id}
-              type="button"
-              role="tab"
-              aria-selected={index === activeIndex}
-              aria-label={`Show ${item.tag}`}
-              className={index === activeIndex ? 'is-active' : ''}
-              onClick={() => { setActiveIndex(index); setPaused(true); }}
-            >
-              <span>{item.tag}</span>
-            </button>
-          ))}
+          {slides.map((item, index) => {
+            const isActive = index === activeIndex;
+            return (
+              <button
+                key={item.id}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                aria-label={`Show ${item.tag}`}
+                className={`relative overflow-hidden transition-all duration-300 ${isActive ? 'is-active' : ''}`}
+                onClick={() => { setActiveIndex(index); setPaused(true); }}
+              >
+                <span>{item.tag}</span>
+                {isActive && !paused && (
+                  <span
+                    key={`progress-${activeIndex}`}
+                    className="absolute bottom-0 left-0 h-[2px] bg-ss-accent w-full animate-slide-progress"
+                  />
+                )}
+              </button>
+            );
+          })}
         </div>
         <div className="hero-stage__buttons">
           <button type="button" onClick={() => changeSlide(-1)} aria-label="Previous featured space"><ChevronLeft size={18} /></button>

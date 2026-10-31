@@ -1,5 +1,6 @@
 'use client';
 
+import * as React from 'react';
 import { Heart } from 'lucide-react';
 import { useWishlist } from '@/hooks/useWishlist';
 
@@ -18,10 +19,13 @@ export function WishlistButton({
 }: WishlistButtonProps) {
   const { isSaved, toggleWishlist } = useWishlist();
   const saved = isSaved(studioId);
+  const [justClicked, setJustClicked] = React.useState(false);
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    setJustClicked(true);
+    setTimeout(() => setJustClicked(false), 350);
     toggleWishlist(studioId, studioTitle);
   };
 
@@ -30,14 +34,14 @@ export function WishlistButton({
       type="button"
       onClick={handleClick}
       aria-label={saved ? 'Remove from saved' : 'Save to wishlist'}
-      className={`group flex items-center gap-1.5 transition-all ${className}`}
+      className={`group flex items-center gap-1.5 transition-all ${justClicked ? 'scale-110' : ''} ${className}`}
     >
       <div
         className={`p-2 rounded-full backdrop-blur-md transition-all ${
           saved
             ? 'bg-red-500 text-white shadow-md shadow-red-500/20'
             : 'bg-black/50 text-white hover:bg-black/70 hover:scale-105'
-        }`}
+        } ${justClicked ? 'animate-heart-pop' : ''}`}
       >
         <Heart
           className={`w-4 h-4 transition-transform duration-200 ${

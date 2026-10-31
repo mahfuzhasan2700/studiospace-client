@@ -16,7 +16,18 @@ export function Navbar() {
   const { data: session, isPending } = useSession();
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [scrolled, setScrolled] = React.useState(false);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
+
+  // Automated scroll detection for dynamic elevation
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 15);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Close dropdown on outside click
   React.useEffect(() => {
@@ -57,7 +68,11 @@ export function Navbar() {
   const user = session?.user;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-ss-divider bg-ss-bg/95 backdrop-blur-md transition-colors duration-200">
+    <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+      scrolled
+        ? 'border-b border-ss-divider bg-ss-bg/95 backdrop-blur-xl shadow-md shadow-black/5'
+        : 'border-b border-ss-divider/60 bg-ss-bg/80 backdrop-blur-md'
+    }`}>
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
         {/* Left: StudioSpace Logo */}
         <Link href="/" className="flex items-center gap-2.5 group focus:outline-none">
