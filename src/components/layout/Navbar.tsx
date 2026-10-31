@@ -3,7 +3,8 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Aperture, Menu, X as CloseIcon, PlusCircle, LayoutDashboard, Film, CalendarCheck, LogOut, User } from 'lucide-react';
+import { Aperture, Menu, X as CloseIcon, PlusCircle, LayoutDashboard, Film, CalendarCheck, LogOut, User, Heart } from 'lucide-react';
+
 import { ThemeToggle } from './ThemeToggle';
 import { useSession, signOut } from '@/lib/auth-client';
 import { toast } from 'sonner';
@@ -167,7 +168,16 @@ export function Navbar() {
                           <CalendarCheck className="w-4 h-4 text-ss-muted" />
                           <span>My Bookings</span>
                         </Link>
+                        <Link
+                          href="/saved"
+                          className="flex items-center gap-2.5 px-4 py-2 text-sm hover:bg-ss-surface-raised transition-colors"
+                          onClick={() => setDropdownOpen(false)}
+                        >
+                          <Heart className="w-4 h-4 text-red-500" />
+                          <span>Saved Wishlist</span>
+                        </Link>
                       </div>
+
 
                       <div className="border-t border-ss-divider pt-1">
                         <button
@@ -236,7 +246,47 @@ export function Navbar() {
             })}
           </nav>
 
-          {!user && (
+          {user ? (
+            <div className="pt-3 border-t border-ss-divider flex flex-col gap-1">
+              <Link
+                href="/dashboard"
+                className="px-3 py-2 rounded-control text-sm font-medium hover:bg-ss-surface-raised flex items-center gap-2"
+              >
+                <LayoutDashboard className="w-4 h-4 text-ss-muted" /> Dashboard
+              </Link>
+              <Link
+                href="/add-studio"
+                className="px-3 py-2 rounded-control text-sm font-medium text-ss-accent hover:bg-ss-surface-raised flex items-center gap-2"
+              >
+                <PlusCircle className="w-4 h-4" /> Add Studio
+              </Link>
+              <Link
+                href="/my-listings"
+                className="px-3 py-2 rounded-control text-sm font-medium hover:bg-ss-surface-raised flex items-center gap-2"
+              >
+                <Film className="w-4 h-4 text-ss-muted" /> My Listings
+              </Link>
+              <Link
+                href="/my-bookings"
+                className="px-3 py-2 rounded-control text-sm font-medium hover:bg-ss-surface-raised flex items-center gap-2"
+              >
+                <CalendarCheck className="w-4 h-4 text-ss-muted" /> My Bookings
+              </Link>
+              <Link
+                href="/saved"
+                className="px-3 py-2 rounded-control text-sm font-medium hover:bg-ss-surface-raised flex items-center gap-2 text-red-500"
+              >
+                <Heart className="w-4 h-4" /> Saved Wishlist
+              </Link>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="mt-2 text-left px-3 py-2 rounded-control text-sm font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20 flex items-center gap-2"
+              >
+                <LogOut className="w-4 h-4" /> Logout
+              </button>
+            </div>
+          ) : (
             <div className="pt-3 border-t border-ss-divider flex flex-col gap-2">
               <Link
                 href="/login"
@@ -252,6 +302,7 @@ export function Navbar() {
               </Link>
             </div>
           )}
+
         </div>
       )}
     </header>

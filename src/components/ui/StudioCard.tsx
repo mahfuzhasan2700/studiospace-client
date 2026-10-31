@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import { MapPin, Users, Star, ArrowUpRight } from 'lucide-react';
 import { Studio } from '@/types/studio';
+import { WishlistButton } from './WishlistButton';
+
 
 const categoryLabels: Record<string, string> = {
   'photo-studio': 'Photo Studio',
@@ -30,12 +32,16 @@ export function StudioCard({ studio }: { studio: Studio }) {
             {formattedCategory}
           </span>
         </div>
-        {studio.rating && (
-          <div className="absolute top-3 right-3 flex items-center gap-1 px-2 py-0.5 rounded-control text-xs font-semibold bg-ss-surface/90 text-ss-text backdrop-blur-sm border border-ss-divider/50">
-            <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-500" />
-            <span>{studio.rating.toFixed(1)}</span>
-          </div>
-        )}
+        <div className="absolute top-3 right-3 flex items-center gap-1.5 z-10">
+          {studio.rating && (
+            <div className="flex items-center gap-1 px-2 py-0.5 rounded-control text-xs font-semibold bg-ss-surface/90 text-ss-text backdrop-blur-sm border border-ss-divider/50">
+              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-500" />
+              <span>{studio.rating.toFixed(1)}</span>
+            </div>
+          )}
+          <WishlistButton studioId={studio.id} studioTitle={studio.title} />
+        </div>
+
       </div>
 
       {/* Content Container */}
