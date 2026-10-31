@@ -7,6 +7,9 @@ import { HostAssurance } from '@/features/home/HostAssurance';
 import { fetchFeaturedStudios } from '@/lib/api';
 import { Studio } from '@/types/studio';
 
+export const dynamic = 'force-dynamic';
+
+
 export default async function HomePage() {
   let featuredStudios: Studio[] = [];
   try {
