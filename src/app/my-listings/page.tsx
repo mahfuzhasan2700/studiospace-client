@@ -96,9 +96,9 @@ export default function MyListingsPage() {
   return (
     <div className="py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 border-b border-ss-border">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 border-b border-ss-divider">
         <div>
-          <h1 className="text-3xl font-extrabold tracking-tight">My Studio Listings</h1>
+          <h1 className="font-heading text-3xl font-extrabold tracking-tight text-ss-text">My Studio Listings</h1>
           <p className="text-ss-muted text-sm mt-1">
             Manage your spaces, update pricing, and monitor listing status.
           </p>
@@ -106,7 +106,7 @@ export default function MyListingsPage() {
 
         <Link
           href="/add-studio"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-ss-accent text-white font-semibold text-sm hover:opacity-90 shadow-md shadow-ss-accent/20 transition-all self-start sm:self-auto"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-ss-accent text-ss-on-accent font-bold text-xs hover:opacity-95 shadow-md shadow-ss-accent/25 transition-all duration-200 active:scale-95 self-start sm:self-auto cursor-pointer"
         >
           <Plus className="w-4 h-4" /> Add New Studio
         </Link>
@@ -148,29 +148,29 @@ export default function MyListingsPage() {
           {studios.map((studio) => (
             <div
               key={studio.id}
-              className="bg-ss-surface border border-ss-border rounded-2xl overflow-hidden flex flex-col hover:border-ss-accent/40 transition-all shadow-sm"
+              className="glass-panel border border-ss-divider/80 rounded-3xl overflow-hidden flex flex-col hover-lift transition-all duration-300 shadow-sm hover:shadow-xl group"
             >
               {/* Thumbnail */}
-              <div className="relative aspect-[16/10] bg-ss-bg overflow-hidden group">
+              <div className="relative aspect-[16/10] bg-ss-bg overflow-hidden">
                 <Image
                   src={studio.imageUrl}
                   alt={studio.title}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
-                <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-black/70 backdrop-blur-md text-white text-xs font-medium">
+                <span className="absolute top-3 left-3 px-3 py-1 rounded-full glass-pill text-white text-[11px] font-mono font-medium tracking-wide">
                   {studio.category.replace('-', ' ')}
                 </span>
-                <span className="absolute bottom-3 right-3 px-2.5 py-1 rounded-md bg-ss-surface/90 backdrop-blur-md text-ss-text font-bold text-xs">
-                  ${(studio.hourlyRateCents / 100).toFixed(0)} / hr
+                <span className="absolute bottom-3 right-3 px-3 py-1 rounded-full glass-pill text-white font-mono font-bold text-xs">
+                  ${(studio.hourlyRateCents / 100).toFixed(0)} <span className="font-sans font-normal opacity-75 text-[10px]">/ hr</span>
                 </span>
               </div>
 
               {/* Info */}
-              <div className="p-5 flex-1 flex flex-col justify-between">
+              <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
                 <div>
-                  <h3 className="font-bold text-lg text-ss-text line-clamp-1 mb-1.5">
+                  <h3 className="font-heading font-bold text-lg text-ss-text line-clamp-1 mb-1.5 group-hover:text-ss-accent transition-colors">
                     {studio.title}
                   </h3>
                   <div className="flex items-center gap-1.5 text-xs text-ss-muted mb-3">
@@ -178,17 +178,17 @@ export default function MyListingsPage() {
                     <span className="truncate">{studio.location}</span>
                   </div>
 
-                  <div className="flex items-center gap-2 text-[11px] text-ss-muted pt-2 border-t border-ss-border">
+                  <div className="flex items-center gap-2 text-[11px] font-mono text-ss-muted pt-2.5 border-t border-ss-divider">
                     <Clock className="w-3.5 h-3.5" />
                     <span>Listed: {new Date(studio.createdAt).toLocaleDateString()}</span>
                   </div>
                 </div>
 
                 {/* Actions */}
-                <div className="flex items-center gap-2 pt-4 mt-4 border-t border-ss-border">
+                <div className="flex items-center gap-2 pt-4 mt-4 border-t border-ss-divider">
                   <Link
                     href={`/studios/${studio.id}`}
-                    className="p-2 rounded-xl border border-ss-border text-ss-muted hover:text-ss-text hover:border-ss-accent transition-colors"
+                    className="p-2.5 rounded-full border border-ss-divider text-ss-muted hover:text-ss-text hover:border-ss-accent hover:bg-ss-surface-raised transition-all duration-200 active:scale-95 cursor-pointer"
                     title="View Public Page"
                   >
                     <ExternalLink className="w-4 h-4" />
@@ -196,7 +196,7 @@ export default function MyListingsPage() {
 
                   <Link
                     href={`/studios/edit/${studio.id}`}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl border border-ss-border text-xs font-semibold hover:border-ss-accent text-ss-text transition-colors"
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-full border border-ss-divider text-xs font-semibold hover:border-ss-accent hover:bg-ss-surface-raised text-ss-text transition-all duration-200 active:scale-95 cursor-pointer"
                   >
                     <Edit3 className="w-3.5 h-3.5" /> Edit
                   </Link>
@@ -204,7 +204,7 @@ export default function MyListingsPage() {
                   <button
                     type="button"
                     onClick={() => openDeleteModal(studio)}
-                    className="p-2 rounded-xl border border-red-500/20 text-red-500 hover:bg-red-500/10 transition-colors"
+                    className="p-2.5 rounded-full border border-rose-500/25 text-rose-500 hover:bg-rose-500/10 transition-all duration-200 active:scale-95 cursor-pointer"
                     title="Delete Listing"
                   >
                     <Trash2 className="w-4 h-4" />

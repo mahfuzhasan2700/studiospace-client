@@ -66,3 +66,4 @@ export function useWishlist() {
 
   return { wishlist, isSaved, toggleWishlist, isLoaded };
 }
+

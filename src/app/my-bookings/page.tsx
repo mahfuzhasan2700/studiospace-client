@@ -216,26 +216,30 @@ export default function MyBookingsPage() {
     switch (status) {
       case 'Confirmed':
         return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-            <CheckCircle2 className="w-3.5 h-3.5" /> Confirmed
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 backdrop-blur-sm shadow-sm shadow-emerald-500/10">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Confirmed</span>
           </span>
         );
       case 'Pending':
         return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
-            <Clock className="w-3.5 h-3.5" /> Pending Host
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/25 backdrop-blur-sm shadow-sm shadow-amber-500/10">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+            <span>Pending Host</span>
           </span>
         );
       case 'Cancelled':
         return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-red-500/10 text-red-500 border border-red-500/20">
-            <XCircle className="w-3.5 h-3.5" /> Cancelled
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-rose-500/10 text-rose-500 border border-rose-500/25 backdrop-blur-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
+            <span>Cancelled</span>
           </span>
         );
       case 'Completed':
         return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-blue-500/10 text-blue-500 border border-blue-500/20">
-            <CheckCircle2 className="w-3.5 h-3.5" /> Completed
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-blue-500/10 text-blue-500 border border-blue-500/25 backdrop-blur-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+            <span>Completed</span>
           </span>
         );
       default:
@@ -257,22 +261,22 @@ export default function MyBookingsPage() {
   return (
     <div className="py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-ss-border">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-ss-divider">
         <div>
-          <h1 className="text-3xl font-extrabold tracking-tight">Reservations & Bookings</h1>
+          <h1 className="font-heading text-3xl font-extrabold tracking-tight text-ss-text">Reservations & Bookings</h1>
           <p className="text-ss-muted text-sm mt-1">
             Track studio reservations, schedules, invoices, and incoming host requests.
           </p>
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex items-center p-1 rounded-xl bg-ss-surface border border-ss-border self-start sm:self-auto">
+        <div className="flex items-center p-1 rounded-full glass-panel border border-ss-divider/80 self-start sm:self-auto">
           <button
             type="button"
             onClick={() => setActiveTab('creator')}
-            className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+            className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 active:scale-95 cursor-pointer ${
               activeTab === 'creator'
-                ? 'bg-ss-accent text-white shadow-sm'
+                ? 'bg-ss-accent text-ss-on-accent shadow-sm'
                 : 'text-ss-muted hover:text-ss-text'
             }`}
           >
@@ -281,9 +285,9 @@ export default function MyBookingsPage() {
           <button
             type="button"
             onClick={() => setActiveTab('host')}
-            className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+            className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 active:scale-95 cursor-pointer ${
               activeTab === 'host'
-                ? 'bg-ss-accent text-white shadow-sm'
+                ? 'bg-ss-accent text-ss-on-accent shadow-sm'
                 : 'text-ss-muted hover:text-ss-text'
             }`}
           >
@@ -335,16 +339,16 @@ export default function MyBookingsPage() {
           {currentBookings.map((b) => (
             <div
               key={b.id}
-              className="bg-ss-surface border border-ss-border rounded-2xl p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-ss-accent/40 transition-all shadow-sm"
+              className="glass-panel border border-ss-divider/80 rounded-2xl p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-ss-accent/40 transition-all duration-300 shadow-sm hover:shadow-lg hover:-translate-y-0.5 group"
             >
               {/* Left Details */}
               <div className="flex items-start gap-4 flex-1">
-                <div className="relative w-20 h-20 sm:w-28 sm:h-24 rounded-xl overflow-hidden shrink-0 bg-ss-bg border border-ss-border">
+                <div className="relative w-20 h-20 sm:w-28 sm:h-24 rounded-xl overflow-hidden shrink-0 bg-ss-bg border border-ss-divider">
                   <Image
                     src={b.studioImage || 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1200&q=80'}
                     alt={b.studioTitle}
                     fill
-                    className="object-cover"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                   />
                 </div>
 
@@ -352,7 +356,7 @@ export default function MyBookingsPage() {
                   <div className="flex flex-wrap items-center gap-2">
                     <Link
                       href={`/studios/${b.studioId}`}
-                      className="font-bold text-base sm:text-lg text-ss-text hover:text-ss-accent truncate transition-colors"
+                      className="font-heading font-bold text-base sm:text-lg text-ss-text hover:text-ss-accent truncate transition-colors"
                     >
                       {b.studioTitle}
                     </Link>
@@ -365,10 +369,10 @@ export default function MyBookingsPage() {
                   </div>
 
                   <div className="flex flex-wrap items-center gap-4 text-xs pt-1">
-                    <span className="flex items-center gap-1 font-medium text-ss-text">
+                    <span className="flex items-center gap-1 font-mono font-medium text-ss-text">
                       <Calendar className="w-3.5 h-3.5 text-ss-muted" /> {b.date}
                     </span>
-                    <span className="flex items-center gap-1 font-medium text-ss-text">
+                    <span className="flex items-center gap-1 font-mono font-medium text-ss-text">
                       <Clock className="w-3.5 h-3.5 text-ss-muted" /> {b.startTime} - {b.endTime} ({b.durationHours}h)
                     </span>
                     <span className="text-ss-muted">
@@ -385,15 +389,15 @@ export default function MyBookingsPage() {
               </div>
 
               {/* Right Price & Actions */}
-              <div className="flex flex-row md:flex-col items-center md:items-end justify-between md:justify-center border-t md:border-t-0 pt-4 md:pt-0 border-ss-border gap-4 shrink-0">
+              <div className="flex flex-row md:flex-col items-center md:items-end justify-between md:justify-center border-t md:border-t-0 pt-4 md:pt-0 border-ss-divider gap-4 shrink-0">
                 <div className="text-left md:text-right">
-                  <span className="text-[11px] uppercase tracking-wider text-ss-muted block font-mono">
+                  <span className="text-[10px] uppercase tracking-wider text-ss-muted block font-mono">
                     Total Amount
                   </span>
-                  <span className="text-xl font-extrabold text-ss-text">
+                  <span className="font-heading font-mono text-xl sm:text-2xl font-extrabold text-ss-text">
                     ${(b.totalPriceCents / 100).toFixed(0)}
                   </span>
-                  <span className="text-[10px] text-ss-muted block">
+                  <span className="text-[10px] text-ss-muted block font-mono">
                     (${b.hourlyRateCents / 100}/hr + ${(b.securityDepositCents / 100).toFixed(0)} deposit)
                   </span>
                 </div>
@@ -403,7 +407,7 @@ export default function MyBookingsPage() {
                   <button
                     type="button"
                     onClick={() => handlePrintInvoice(b)}
-                    className="p-2 rounded-xl border border-ss-border text-ss-muted hover:text-ss-text hover:border-ss-accent transition-colors"
+                    className="p-2.5 rounded-full border border-ss-divider text-ss-muted hover:text-ss-text hover:border-ss-accent hover:bg-ss-surface-raised transition-all duration-200 active:scale-95 cursor-pointer"
                     title="Print / Download PDF Receipt"
                   >
                     <Printer className="w-4 h-4" />
@@ -414,7 +418,7 @@ export default function MyBookingsPage() {
                     <button
                       type="button"
                       onClick={() => setBookingToConfirm(b)}
-                      className="px-4 py-2 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-colors shadow-sm"
+                      className="px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all duration-200 shadow-md shadow-emerald-600/20 active:scale-95 cursor-pointer"
                     >
                       Accept & Confirm
                     </button>
@@ -425,7 +429,7 @@ export default function MyBookingsPage() {
                     <button
                       type="button"
                       onClick={() => setBookingToCancel(b)}
-                      className="px-3 py-2 rounded-xl border border-red-500/20 text-red-500 text-xs font-bold hover:bg-red-500/10 transition-colors"
+                      className="px-4 py-2 rounded-full border border-rose-500/25 text-rose-500 text-xs font-semibold hover:bg-rose-500/10 transition-all duration-200 active:scale-95 cursor-pointer"
                     >
                       Cancel Booking
                     </button>

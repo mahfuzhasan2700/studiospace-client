@@ -49,22 +49,23 @@ export function StudioFilters({ currentCategory, currentSearch, currentSort }: {
       {/* Search Bar & Sort Dropdown */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
         {/* Search Input */}
-        <form onSubmit={handleSearchSubmit} className="relative flex-1 max-w-md">
-          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-ss-muted" />
+        <form onSubmit={handleSearchSubmit} className="relative flex-1 max-w-md group">
+          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-ss-muted transition-colors group-focus-within:text-ss-accent" />
           <input
             type="text"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             placeholder="Search by studio name, area, city, or overview..."
-            className="w-full pl-10 pr-10 py-2.5 rounded-control bg-ss-surface border border-ss-control-border text-sm text-ss-text placeholder:text-ss-muted/60 focus:outline-none focus:ring-1 focus:ring-ss-accent"
+            className="w-full pl-10 pr-10 py-2.5 rounded-full bg-ss-surface/80 backdrop-blur-md border border-ss-control-border text-sm text-ss-text placeholder:text-ss-muted/60 transition-all duration-200 focus:outline-none focus:border-ss-accent focus:ring-2 focus:ring-ss-accent/20 focus:bg-ss-surface"
           />
           {searchInput && (
             <button
               type="button"
               onClick={handleClearSearch}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-ss-muted hover:text-ss-text"
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-ss-muted hover:text-ss-text hover:bg-ss-surface-raised transition-colors"
+              aria-label="Clear search"
             >
-              <X className="w-4 h-4" />
+              <X className="w-3.5 h-3.5" />
             </button>
           )}
         </form>
@@ -75,7 +76,7 @@ export function StudioFilters({ currentCategory, currentSearch, currentSort }: {
           <select
             value={currentSort || 'newest'}
             onChange={(e) => updateFilter({ sort: e.target.value })}
-            className="text-xs px-3 py-2.5 rounded-control bg-ss-surface border border-ss-control-border text-ss-text font-medium focus:outline-none focus:ring-1 focus:ring-ss-accent cursor-pointer"
+            className="text-xs px-3.5 py-2.5 rounded-full bg-ss-surface/80 backdrop-blur-md border border-ss-control-border text-ss-text font-medium transition-all duration-200 focus:outline-none focus:border-ss-accent focus:ring-2 focus:ring-ss-accent/20 cursor-pointer hover:border-ss-accent/40"
           >
             <option value="newest">Sort: Newest Added</option>
             <option value="price-asc">Sort: Price (Low to High)</option>
@@ -94,10 +95,10 @@ export function StudioFilters({ currentCategory, currentSearch, currentSort }: {
               key={cat.slug}
               type="button"
               onClick={() => updateFilter({ category: cat.slug || null })}
-              className={`px-4 py-2 rounded-control text-xs font-semibold whitespace-nowrap transition-colors duration-150 ${
+              className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 active:scale-95 ${
                 isSelected
-                  ? 'bg-ss-accent text-ss-on-accent shadow-sm'
-                  : 'bg-ss-surface border border-ss-divider text-ss-text/80 hover:text-ss-text hover:bg-ss-surface-raised'
+                  ? 'bg-ss-accent text-ss-on-accent shadow-md shadow-ss-accent/25 scale-[1.02]'
+                  : 'bg-ss-surface/70 backdrop-blur-sm border border-ss-divider text-ss-text/80 hover:text-ss-text hover:bg-ss-surface-raised hover:border-ss-accent/30 hover:scale-[1.02]'
               }`}
             >
               {cat.label}
@@ -115,9 +116,9 @@ export function StudioFilters({ currentCategory, currentSearch, currentSort }: {
             <button
               type="button"
               onClick={() => updateFilter({ category: null })}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-ss-accent/10 text-ss-accent border border-ss-accent/20 hover:bg-ss-accent/20 transition-colors font-medium"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-ss-accent/10 text-ss-accent border border-ss-accent/25 hover:bg-ss-accent/20 transition-all font-medium hover:scale-105 active:scale-95"
             >
-              Category: {categories.find((c) => c.slug === currentCategory)?.label || currentCategory}
+              <span>Category: {categories.find((c) => c.slug === currentCategory)?.label || currentCategory}</span>
               <X className="w-3 h-3" />
             </button>
           )}
@@ -126,9 +127,9 @@ export function StudioFilters({ currentCategory, currentSearch, currentSort }: {
             <button
               type="button"
               onClick={handleClearSearch}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-ss-accent/10 text-ss-accent border border-ss-accent/20 hover:bg-ss-accent/20 transition-colors font-medium"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-ss-accent/10 text-ss-accent border border-ss-accent/25 hover:bg-ss-accent/20 transition-all font-medium hover:scale-105 active:scale-95"
             >
-              Search: &quot;{currentSearch}&quot;
+              <span>Search: &quot;{currentSearch}&quot;</span>
               <X className="w-3 h-3" />
             </button>
           )}
@@ -137,9 +138,9 @@ export function StudioFilters({ currentCategory, currentSearch, currentSort }: {
             <button
               type="button"
               onClick={() => updateFilter({ sort: null })}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-ss-accent/10 text-ss-accent border border-ss-accent/20 hover:bg-ss-accent/20 transition-colors font-medium"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-ss-accent/10 text-ss-accent border border-ss-accent/25 hover:bg-ss-accent/20 transition-all font-medium hover:scale-105 active:scale-95"
             >
-              Sort: {currentSort}
+              <span>Sort: {currentSort}</span>
               <X className="w-3 h-3" />
             </button>
           )}
@@ -150,7 +151,7 @@ export function StudioFilters({ currentCategory, currentSearch, currentSort }: {
               setSearchInput('');
               router.push('/studios');
             }}
-            className="text-xs text-ss-muted hover:text-ss-text underline underline-offset-4 ml-1"
+            className="text-xs text-ss-muted hover:text-ss-accent font-medium underline underline-offset-4 ml-1 transition-colors"
           >
             Reset all
           </button>

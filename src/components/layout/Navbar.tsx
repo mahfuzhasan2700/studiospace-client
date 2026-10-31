@@ -106,25 +106,29 @@ export function Navbar() {
                   <button
                     type="button"
                     onClick={() => setDropdownOpen((prev) => !prev)}
-                    className="flex items-center gap-2.5 p-1 rounded-full hover:ring-2 hover:ring-ss-accent/40 focus:outline-none transition-all"
+                    className="relative flex items-center gap-2.5 p-1 rounded-full hover:ring-2 hover:ring-ss-accent/40 focus:outline-none transition-all group"
                     aria-expanded={dropdownOpen}
                     aria-label="User account menu"
                   >
-                    {user.image ? (
-                      <img
-                        src={user.image}
-                        alt={user.name || 'User avatar'}
-                        className="w-9 h-9 rounded-full object-cover border border-ss-control-border"
-                      />
-                    ) : (
-                      <div className="w-9 h-9 rounded-full bg-ss-accent/15 text-ss-accent font-semibold flex items-center justify-center border border-ss-accent/30 text-sm">
-                        {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
-                      </div>
-                    )}
-                    <span className="text-sm font-medium text-ss-text hidden lg:inline-block max-w-[120px] truncate">
+                    <div className="relative">
+                      {user.image ? (
+                        <img
+                          src={user.image}
+                          alt={user.name || 'User avatar'}
+                          className="w-9 h-9 rounded-full object-cover border border-ss-control-border"
+                        />
+                      ) : (
+                        <div className="w-9 h-9 rounded-full bg-ss-accent/15 text-ss-accent font-semibold flex items-center justify-center border border-ss-accent/30 text-sm">
+                          {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                        </div>
+                      )}
+                      <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-500 border-2 border-ss-surface animate-pulse" />
+                    </div>
+                    <span className="text-sm font-medium text-ss-text hidden lg:inline-block max-w-[120px] truncate group-hover:text-ss-accent transition-colors">
                       {user.name?.split(' ')[0]}
                     </span>
                   </button>
+
 
                   {/* Dropdown Menu */}
                   {dropdownOpen && (

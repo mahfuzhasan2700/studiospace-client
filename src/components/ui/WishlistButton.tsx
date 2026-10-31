@@ -53,3 +53,4 @@ export function WishlistButton({
     </button>
   );
 }
+

@@ -75,32 +75,35 @@ export function CategoryGrid() {
               <Link
                 key={cat.slug}
                 href={`/studios?category=${cat.slug}`}
-                className="group relative rounded-dialog overflow-hidden border border-ss-divider bg-ss-surface p-4 flex flex-col justify-between hover:border-ss-control-border hover:shadow-md transition-all duration-300 min-h-[200px]"
+                className="group relative rounded-dialog overflow-hidden border border-ss-divider/70 bg-ss-surface p-5 flex flex-col justify-between hover:border-ss-accent/60 hover-lift transition-all duration-300 min-h-[220px]"
               >
                 {/* Background Image with Overlay */}
                 <div className="absolute inset-0 z-0 overflow-hidden">
                   <img
                     src={cat.image}
                     alt={cat.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-20 dark:opacity-15"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out opacity-25 dark:opacity-20"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ss-surface via-ss-surface/80 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ss-surface via-ss-surface/85 to-transparent" />
                 </div>
 
                 {/* Content */}
                 <div className="relative z-10 flex items-center justify-between">
-                  <div className="w-10 h-10 rounded-control bg-ss-surface-raised border border-ss-divider flex items-center justify-center text-ss-accent group-hover:bg-ss-accent group-hover:text-ss-on-accent transition-colors duration-200">
+                  <div className="w-11 h-11 rounded-control bg-ss-surface-raised border border-ss-divider/80 flex items-center justify-center text-ss-accent group-hover:bg-ss-accent group-hover:text-ss-on-accent group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-sm">
                     <Icon className="w-5 h-5" />
                   </div>
-                  <span className="text-[11px] font-mono font-medium text-ss-muted bg-ss-surface/70 px-2 py-0.5 rounded-control">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-ss-muted bg-ss-surface-raised/80 backdrop-blur-sm px-2.5 py-1 rounded-full border border-ss-divider/40">
                     {cat.count}
                   </span>
                 </div>
 
                 <div className="relative z-10 mt-6 space-y-1">
-                  <h3 className="font-heading font-bold text-base text-ss-text group-hover:text-ss-accent transition-colors">
-                    {cat.name}
-                  </h3>
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-heading font-extrabold text-base text-ss-text group-hover:text-ss-accent transition-colors">
+                      {cat.name}
+                    </h3>
+                    <ArrowRight className="w-3.5 h-3.5 text-ss-accent opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
+                  </div>
                   <p className="text-xs text-ss-muted leading-snug line-clamp-2">
                     {cat.subtitle}
                   </p>
@@ -113,4 +116,5 @@ export function CategoryGrid() {
     </section>
   );
 }
+
 

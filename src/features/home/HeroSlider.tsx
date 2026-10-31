@@ -39,7 +39,11 @@ export function HeroSlider() {
   const [activeIndex, setActiveIndex] = React.useState(0);
 
   return (
-    <div className="relative w-full bg-ss-surface border-b border-ss-divider overflow-hidden">
+    <div className="relative w-full bg-gradient-to-b from-ss-surface via-ss-bg to-ss-bg border-b border-ss-divider/70 overflow-hidden">
+      {/* Ambient background glow */}
+      <div className="pointer-events-none absolute -top-40 -left-40 w-[550px] h-[550px] rounded-full bg-ss-accent/10 blur-[120px] animate-pulse-glow" />
+      <div className="pointer-events-none absolute top-1/2 -right-40 w-[450px] h-[450px] rounded-full bg-ss-accent/5 blur-[100px]" />
+
       <Swiper
         modules={[Navigation, Pagination, Autoplay, EffectFade]}
         effect="fade"
@@ -49,18 +53,21 @@ export function HeroSlider() {
         onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
         className="w-full"
       >
-        {slides.map((slide, idx) => (
+        {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+            <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 relative">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 {/* Left 5 Columns: Punchy Headline & CTAs */}
-                <div className="lg:col-span-5 space-y-6 z-10">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-control bg-ss-surface-raised border border-ss-divider text-xs font-semibold uppercase tracking-wider text-ss-accent">
-                    <Sparkles className="w-3.5 h-3.5" />
+                <div className="lg:col-span-5 space-y-6 z-10 animate-fade-up">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-ss-surface border border-ss-divider/80 text-xs font-bold uppercase tracking-wider text-ss-accent shadow-sm">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-ss-accent opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-ss-accent" />
+                    </span>
                     <span>{slide.tag}</span>
                   </div>
 
-                  <h1 className="font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl text-ss-text leading-[1.05] tracking-tight">
+                  <h1 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-ss-text leading-[1.08] tracking-tight">
                     {slide.title}
                   </h1>
 
@@ -71,31 +78,53 @@ export function HeroSlider() {
                   <div className="flex flex-wrap items-center gap-3 pt-2">
                     <Link
                       href="/studios"
-                      className="px-6 py-3 rounded-control text-sm font-semibold bg-ss-accent text-ss-on-accent hover:bg-ss-accent-hover transition-colors shadow-sm flex items-center gap-2"
+                      className="px-6 py-3 rounded-control text-sm font-bold bg-ss-accent text-ss-on-accent hover:bg-ss-accent-hover transition-all duration-200 shadow-md shadow-ss-accent/20 hover:scale-[1.03] active:scale-[0.98] flex items-center gap-2"
                     >
                       <span>Explore Studios</span>
                       <ArrowRight className="w-4 h-4" />
                     </Link>
                     <Link
-                      href="/studios"
-                      className="px-6 py-3 rounded-control text-sm font-semibold border border-ss-control-border text-ss-text hover:bg-ss-surface-raised transition-colors"
+                      href="/add-studio"
+                      className="px-6 py-3 rounded-control text-sm font-semibold border border-ss-control-border text-ss-text hover:bg-ss-surface transition-all duration-200 hover:border-ss-accent"
                     >
-                      Host Your Space
+                      Host a Creative Space
                     </Link>
+                  </div>
+
+                  {/* Trust Micro-Metrics */}
+                  <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-ss-divider/50 text-xs font-mono text-ss-muted">
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                      Verified Hosts
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                      Zero Overlap Concurrency
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                      Instant PDF Invoicing
+                    </span>
                   </div>
                 </div>
 
                 {/* Right 7 Columns: Dominant High-Res Photograph */}
                 <div className="lg:col-span-7">
-                  <div className="relative aspect-[16/10] w-full rounded-dialog overflow-hidden border border-ss-divider shadow-md bg-ss-surface-raised">
+                  <div className="relative aspect-[16/10] w-full rounded-dialog overflow-hidden border border-ss-divider/80 shadow-2xl bg-ss-surface-raised group">
                     <img
                       src={slide.imageUrl}
                       alt={slide.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                    <div className="absolute bottom-4 left-4 right-4 text-white">
-                      <p className="text-xs font-mono uppercase tracking-widest text-white/80">{slide.subtitle}</p>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                    <div className="absolute bottom-5 left-5 right-5 text-white flex items-center justify-between">
+                      <div>
+                        <p className="text-xs font-mono uppercase tracking-widest text-white/80">{slide.subtitle}</p>
+                        <p className="text-sm font-bold mt-0.5 text-white/95">Brooklyn & Manhattan Premier Workspaces</p>
+                      </div>
+                      <span className="glass-pill px-3 py-1 rounded-full text-[11px] font-mono text-white/90">
+                        HD 4K Ready
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -104,6 +133,7 @@ export function HeroSlider() {
           </SwiperSlide>
         ))}
       </Swiper>
+
 
       {/* Slide Navigation and 01 / 03 Counter */}
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 pb-8 flex items-center justify-between text-xs font-mono text-ss-muted">
