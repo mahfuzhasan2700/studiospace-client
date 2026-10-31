@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { fetchStudioById } from '@/lib/api';
 import { StudioDetail } from '@/types/studio';
+import { BookingWidget } from '@/features/bookings/BookingWidget';
 import {
+
   MapPin,
   Users,
   Star,
@@ -195,60 +197,10 @@ export default async function StudioDetailPage(props: {
           </div>
 
           {/* Right Column (4 cols): Sticky Booking Card Panel */}
-          <div className="lg:col-span-4 sticky top-24">
-            <div className="p-6 rounded-dialog bg-ss-surface border border-ss-control-border shadow-lg space-y-6">
-              {/* Price Header */}
-              <div className="flex items-baseline justify-between border-b border-ss-divider pb-4">
-                <div>
-                  <span className="font-heading font-extrabold text-3xl text-ss-text">
-                    ${priceDollars}
-                  </span>
-                  <span className="text-xs text-ss-muted ml-1">/ hour</span>
-                </div>
-                <div className="text-right">
-                  <span className="text-[11px] font-mono text-ss-muted uppercase block">Security Deposit</span>
-                  <span className="text-xs font-semibold text-ss-text">${depositDollars} refundable</span>
-                </div>
-              </div>
-
-              {/* Booking Summary Highlights */}
-              <div className="space-y-3 text-xs text-ss-muted">
-                <div className="flex items-center justify-between py-1 border-b border-ss-divider/50">
-                  <span>Minimum Booking</span>
-                  <span className="font-semibold text-ss-text">2 hours</span>
-                </div>
-                <div className="flex items-center justify-between py-1 border-b border-ss-divider/50">
-                  <span>Cleaning & Prep Fee</span>
-                  <span className="font-semibold text-emerald-600 dark:text-emerald-400">Included ($0)</span>
-                </div>
-                <div className="flex items-center justify-between py-1 border-b border-ss-divider/50">
-                  <span>Cancellation Policy</span>
-                  <span className="font-semibold text-ss-text">Free within 24h</span>
-                </div>
-              </div>
-
-              {/* Informational Callout */}
-              <div className="p-3 rounded-control bg-ss-surface-raised border border-ss-divider flex items-start gap-2.5 text-xs text-ss-muted">
-                <Info className="w-4 h-4 text-ss-accent shrink-0 mt-0.5" />
-                <p>
-                  Reserving creates a Pending request. Once host confirms, the slot is locked and you receive production door access codes.
-                </p>
-              </div>
-
-              {/* CTA Booking Button */}
-              <Link
-                href={`/studios/${studio.id}#book`}
-                className="w-full py-3.5 px-4 rounded-control text-sm font-semibold bg-ss-accent text-ss-on-accent hover:bg-ss-accent-hover transition-colors flex items-center justify-center gap-2 shadow-sm focus:outline-none"
-              >
-                <Calendar className="w-4 h-4" />
-                <span>Book Workspace Now</span>
-              </Link>
-
-              <p className="text-[11px] text-center text-ss-muted">
-                You won&apos;t be billed until host confirms your session slot.
-              </p>
-            </div>
+          <div className="lg:col-span-4 sticky top-24" id="book">
+            <BookingWidget studio={studio} />
           </div>
+
         </div>
       </div>
     </div>
